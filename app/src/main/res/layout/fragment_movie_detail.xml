@@ -1,36 +1,80 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.android.popularmovies.MovieDetailActivityFragment">
-
-    <TextView
-        android:id="@+id/detail_text"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:background="#b6cd54" />
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:background="#424242"
+        android:orientation="vertical"
+        tools:context="com.example.android.popularmovies.MovieDetailActivityFragment">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/detail_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:background="#303030"
+            android:paddingBottom="10dp"
+            android:paddingLeft="@dimen/abc_action_bar_content_inset_material"
+            android:paddingRight="@dimen/abc_action_bar_content_inset_material"
+            android:paddingTop="10dp"
+            android:text="Shawshank Redemption"
+            android:textColor="#eeeceff9"
+            android:textSize="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/abc_action_bar_content_inset_material">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:adjustViewBounds="true"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:id="@+id/movie_release"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#eeeceff9"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/movie_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="#eeeceff9"
+                    android:textSize="15dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/movie_synopsis"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:paddingLeft="@dimen/abc_action_bar_content_inset_material"
+            android:paddingRight="@dimen/abc_action_bar_content_inset_material"
+            android:paddingBottom="@dimen/abc_action_bar_content_inset_material"
+            android:textColor="#eeeceff9"
+            android:textSize="15dp" />
 
 
     </LinearLayout>
-
-
-</LinearLayout>
+</ScrollView>

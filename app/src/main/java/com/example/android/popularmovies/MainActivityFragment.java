@@ -1,9 +1,12 @@
 package com.example.android.popularmovies;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Movie;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +44,8 @@ import java.util.List;
 public class MainActivityFragment extends Fragment {
     private ArrayList<MovieData> mMovieList = new ArrayList<>();
     private MovieAdapter movieAdapter;
+    ProgressDialog progressDialog;
+
     public MainActivityFragment() {
     }
 
@@ -48,8 +53,17 @@ public class MainActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressDialog  = new ProgressDialog(getActivity());
+        progressDialog.setTitle("Fetching movies..");
+        progressDialog.show();
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         weatherTask.execute();
+
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -139,10 +153,13 @@ public class MainActivityFragment extends Fragment {
             String forecastJsonStr = null;
 
             try {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String sortPref = prefs.getString("sort",
+                        getString(R.string.default_pref));
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                String baseUrl = "http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=b887f8d9fd7dc0cbdff1b721fdf3cd2b";
+                String baseUrl = "http://api.themoviedb.org/3/discover/movie?sort_by="+sortPref+"&api_key=b887f8d9fd7dc0cbdff1b721fdf3cd2b";
                 URL url = new URL(baseUrl);
 
                 // Create the request to OpenWeatherMap, and open the connection
@@ -205,6 +222,7 @@ public class MainActivityFragment extends Fragment {
                 mMovieList.addAll(result);
                 movieAdapter.notifyDataSetChanged();
             }
+            progressDialog.dismiss();
         }
 
 
